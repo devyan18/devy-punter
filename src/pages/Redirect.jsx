@@ -1,29 +1,45 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 export default function Redirect () {
   const { id } = useParams()
 
-  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
+
+  const handleRedirect = async (id) => {
+    try {
+      const response = await fetch(`https://devy-redirect-production.up.railway.app/api/punter/${id}`)
+      const data = await response.json()
+      if (data.url) {
+        window.location.replace(data.url)
+        console.log('cambiamo')
+      } else {
+        setError(true)
+      }
+    } catch (error) {
+      setError(true)
+    }
+  }
 
   useEffect(() => {
     if (id) {
-      fetch(`https://devy-redirect-production.up.railway.app/api/punter/${id}`)
-        .then(res => res.json())
-        .then(data => {
-          setLoading(false)
-          if (data.url) {
-            window.location.replace(data.url)
-          }
-        })
+      handleRedirect(id)
     }
   }, [])
 
-  if (loading) {
+  if (error) {
     return (
-      <div>
-        <h2>Redirecting...</h2>
+      <div className='body'>
+        <h2>Devy Shorter</h2>
+        <p>Something went wrong!</p>
+        <Link to='/'>Go back</Link>
       </div>
     )
   }
+
+  return (
+    <div className='redirecting-text'>
+      <h2>Redirecting...</h2>
+    </div>
+  )
 }
