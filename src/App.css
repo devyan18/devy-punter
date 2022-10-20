@@ -12,3 +12,12 @@ html, body {
   align-items: center;
   gap: 4px;
 }
+
+.redirecting-text {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

@@ -20,6 +20,10 @@ export default function Redirect () {
   }, [])
 
   if (loading) {
-    return <div>Redirecting...</div>
+    return (
+      <div>
+        <h2>Redirecting...</h2>
+      </div>
+    )
   }
 }

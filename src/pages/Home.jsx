@@ -16,7 +16,7 @@ export default function Home () {
       .then(data => {
         console.log(data)
         if (data.url) {
-          setUrlShorter(`https://devy-redirect.netlify.app/${data.url}`)
+          setUrlShorter(`https://devy-punter.netlify.app/${data.url}`)
         }
       })
   }
